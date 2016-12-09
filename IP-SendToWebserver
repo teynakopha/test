@@ -1,0 +1,71 @@
+import Tkinter
+import tkMessageBox
+import requests
+import  time
+from Tkinter import * #insert referrence input box
+
+
+
+top = Tkinter.Tk()
+top.title("v1.0by Sattaya")
+top.resizable(width=False,height=False)
+top.minsize(width=200,height=200)
+top.maxsize(width=200,height=200)
+
+#fuction send ip to webserver
+def sendIP():
+    tkMessageBox.showinfo("send ip commplete","user is "+inputUserName.get()+"time interval : "+w.get()+" minutes")
+    userdata = {"username": inputUserName.get(), "password": inputPassword.get(),"time":w.get()}
+    resp = requests.post(inputLink.get(), params=userdata)
+    labal1.pack_forget()
+    labal2.pack_forget()
+    labal3.pack_forget()
+    Label4.pack_forget()
+    inputLink.pack_forget()
+    inputUserName.pack_forget()
+    inputPassword.pack_forget()
+    w.pack_forget()
+    Button1.pack_forget()
+   # top.resizable(width=Fal,height=True)
+    top.minsize(width=False,height=False)
+    b1 = Button(top,text="in session")
+    b1.config(width=10,bg="red")
+    b1.pack()
+
+#create inputbox
+varUsername = StringVar()
+varUsername.set('Administrator')
+labal1 = Label(top,text="username")
+labal1.pack(side=TOP)
+inputUserName = Entry(top,bd=5,textvariable = varUsername)
+inputUserName.pack()
+
+#create input field password
+varPassword = StringVar()
+varPassword.set('P@ssw0rd')
+labal2 = Label(top,text="password")
+labal2.pack(side=TOP)
+inputPassword = Entry(top,bd=5,show="*",textvariable=varPassword)
+inputPassword.pack()
+
+#create input field time to send request http to server
+varTime = StringVar()
+varTime.set(5)
+labal3 = Label(top,text="interval time update ip(munitues)")
+labal3.pack(side=TOP)
+w = Spinbox(top, from_=0, to=10,textvariable=varTime)
+w.pack()
+
+#create link to send ip to webserver
+varLink = StringVar()
+varLink.set("http://www.saraburigolfclub.com/PHP/index.php")
+Label4 = Label(top,text="enter link below")
+Label4.pack()
+inputLink = Entry(top,textvariable=varLink)
+inputLink.pack()
+#create button to login
+Button1 = Button(top,text="Login",command=sendIP)
+Button1.pack()
+
+#run loop event detect
+top.mainloop()
